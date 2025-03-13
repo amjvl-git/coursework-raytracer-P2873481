@@ -23,43 +23,43 @@ class Vec3
     // Add other vector to this one and return the result
     add(other)
     {
-        return new Vec3(this.x + other.x, this.y + other.y, this.z + other.z)
+        return new Vec3(this.x + other.x, this.y + other.y, this.z + other.z);
     }
 
     // Subtract other vector from this one and return the result
     minus(other)
     {
-        return new Vec3(this.x - other.x, this.y - other.y, this.z - other.z)
+        return new Vec3(this.x - other.x, this.y - other.y, this.z - other.z);
     }
 
     // Multiply other vector by this one and return the result
     multiply(other)
     {
-        return new Vec3(this.x * other.x, this.y * other.y, this.z * other.z)
+        return new Vec3(this.x * other.x, this.y * other.y, this.z * other.z);
     }
 
     // Scale this vector by the number scalar and return the result
     scale(scalar)
     {
-        return new Vec3(this.x * scalar, this.y * scalar, this.z * scalar)
+        return new Vec3(this.x * scalar, this.y * scalar, this.z * scalar);
     }
     
     // Calculate the dot product of this vector with the other and return the result
     dot(other)
     {
-        return new Vec3(this.x * other.x + this.y * other.y + this.z * other.z)
+        return new Vec3(this.x * other.x + this.y * other.y + this.z * other.z);
     }
 
     // Calculate and return the magnitude of this vector
     magnitude()
     {
-        return result(Math.sqrt(this.x ** 2, this.y ** 2, this.z ** 2))
+        return result(Math.sqrt(this.x ** 2, this.y ** 2, this.z ** 2));
     }
     
     // Calculate and return the magnitude of this vector without the square root
     magnitudeSquared()
     {
-        return result(this.x ** 2, this.y ** 2, this.z ** 2)
+        return result(this.x ** 2, this.y ** 2, this.z ** 2);
     }
 
     // Return a normalised version of this vector
@@ -67,7 +67,7 @@ class Vec3
     {
         let mag = this.magnitude();
         if (mag == 0) return new Vec3 (0,0,0) // You can't divide by 0, after all
-        else return new Vec3 (this.x / mag, this.y / mag, this.z / mag)
+        else return new Vec3 (this.x / mag, this.y / mag, this.z / mag);
     }
 }
 
@@ -98,7 +98,11 @@ class Ray
     }
 
     // Calculate and return the point in space (a Vec3) for this ray for the given value of t
-    pointAt(t) {}
+    pointAt(t)
+    {
+        point = this.origin + this.direction * t;
+        return new Vec3(point.x, point.y, point.z);
+    }
 }
 
 // The result of casting a ray into our scene
