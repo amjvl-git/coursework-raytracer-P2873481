@@ -53,17 +53,22 @@ class Vec3
     // Calculate and return the magnitude of this vector
     magnitude()
     {
-        return result(Math.sqrt(this.x ^ 2, this.y ^ 2, this.z ^ 2))
+        return result(Math.sqrt(this.x ** 2, this.y ** 2, this.z ** 2))
     }
     
     // Calculate and return the magnitude of this vector without the square root
     magnitudeSquared()
     {
-        return result(this.x ^ 2, this.y ^ 2, this.z ^ 2)
+        return result(this.x ** 2, this.y ** 2, this.z ** 2)
     }
 
     // Return a normalised version of this vector
-    normalised() {}
+    normalised()
+    {
+        let mag = this.magnitude();
+        if (mag == 0) return new Vec3 (0,0,0) // You can't divide by 0, after all
+        else return new Vec3 (this.x / mag, this.y / mag, this.z / mag)
+    }
 }
 
 // A sphere in 3D space. Has centre, radius and colour all of which are Vec3s
