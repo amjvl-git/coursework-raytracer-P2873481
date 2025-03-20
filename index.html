@@ -87,10 +87,7 @@ class Sphere
     // If no solutions exist return -1
     rayIntersects(ray) 
     {
-        
-
-        //Previous attempt 
-        /*let a = direction * direction;
+        let a = direction * direction;
         let b = (2 * direction) * (origin - centre);
         let c = (origin - centre) * (origin - centre) - radius^2;
         let discriminant = b^2 - (4*a*c);
@@ -103,7 +100,7 @@ class Sphere
         }
         else {
             return -1;
-        }*/
+        }
     }
 }
 
@@ -143,8 +140,8 @@ class RayCastResult
 // Calculate the intersection point and normal when a ray hits a sphere. Returns a RayCastResult.
 function hit(ray, t, sphereIndex)
 {
-    
-    return new RayCastResult(intersectPos, intersectNorm, t, sphereIndex)
+    intersectPoint = ray.origin.add(scalar(t))
+    return new RayCastResult(intersectPoint, intersectNormal, t, sphereIndex)
 }
 
 // Return a RayCastResult when a ray misses everything in the scene
