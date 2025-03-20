@@ -142,7 +142,13 @@ function traceRay(ray)
 // Calculate and return the background colour based on the ray
 function backgroundColour(ray)
 {
-        return new Vec3(0.3,0.5,0.9) // Blue
+    let white = new Vec3(1,1,1)
+    let blue = new Vec3(0.3,0.5,0.9)
+    t = 0.5*(ray.direction.y + 1.0)
+    return white.scale(1-t).add(blue.scale(t))
+
+    // old code, deprecated but archived
+    // return new Vec3(0.3,0.5,0.9) // Blue
 }
 
 // Returns the colour the ray should have as a Vec3 with RGB values in [0,1]
@@ -172,7 +178,16 @@ const spheres = new Array(
 // Main code
 let imageWidth = document.getElementById("canvas").width
 let imageHeight = document.getElementById("canvas").height
-let aspectRatio = document.getElementById("canvas").height / document.getElementById("canvas").width
+let aspectRatio = imageHeight / imageWidth
+
+let viewportWidth = 2
+let viewportHeight = viewportWidth * aspectRatio
+let focalLength = 1.0
+
+let camPosition = new Vec3(0,0,0)
+let horizontal = new Vec3(viewportWidth, 0, 0)
+let vertical = new Vec3(0, viewportHeight, 0)
+let lowerLeftCorner = camPosition.minus(horizontal.scale(0.5)).minus(vertical.scale(0.5)).minus(new Vec3(0,0,focalLength))
 
 let colour = new Vec3(0,0,0)
 
@@ -180,6 +195,15 @@ for (let i = 0; i < imageWidth; i++)
 {
     for (let j = 0; j <= imageHeight; j++)
     {
+        let u = i / (imageWidth-1)
+        let v = j / (imageHeight-1)
+        
+        // Previous adaptation preserved for archive
+        // colour.x = u * 255
+        // colour.y = v * 255
+
+        let ray = new Ray(camPosition, lowerLeftCorner.add(horizontal.scale(u)).add(vertical.scale(v)).minus(camPosition))
+        colour = rayColour(ray).scale(255)
         setPixel(i,j,colour)
     }
 }
